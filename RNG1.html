@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapz Poker RNG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide-icons/0.321.0/font/lucide.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background-color: black; 
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="w-full max-w-md bg-zinc-900 rounded-xl shadow-2xl border border-zinc-800">
+            <div class="flex items-center justify-center p-4 border-b border-zinc-800">
+                <i class="lucide lucide-camera mr-2"></i>
+                <h1 class="text-xl font-bold text-white">Mapz Poker RNG</h1>
+            </div>
+            <div class="p-6 text-center">
+                <div id="randomNumber" class="text-6xl font-bold mb-4 text-white">
+                    --
+                </div>
+                <div id="timer" class="text-xl text-zinc-400">
+                    Next number in: 10 seconds
+                </div>
+            </div>
+            <div class="p-4 border-t border-zinc-800">
+                <button 
+                    id="generateBtn"
+                    class="w-full bg-white text-black py-3 rounded-lg font-bold hover:bg-zinc-200 transition-colors"
+                >
+                    Generate New Number
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const randomNumberEl = document.getElementById('randomNumber');
+        const timerEl = document.getElementById('timer');
+        const generateBtn = document.getElementById('generateBtn');
+
+        // Function to generate random number
+        function generateRandomNumber() {
+            const random = Math.floor(Math.random() * 100) + 1;
+            randomNumberEl.textContent = random;
+            timeRemaining = 10;
+            updateTimerDisplay();
+        }
+
+        // Timer variables
+        let timeRemaining = 10;
+
+        // Function to update timer display
+        function updateTimerDisplay() {
+            timerEl.textContent = `Next number in: ${timeRemaining} seconds`;
+        }
+
+        // Timer interval
+        const timer = setInterval(() => {
+            timeRemaining--;
+            
+            if (timeRemaining <= 0) {
+                generateRandomNumber();
+                timeRemaining = 10;
+            }
+            
+            updateTimerDisplay();
+        }, 1000);
+
+        // Manual generation button
+        generateBtn.addEventListener('click', generateRandomNumber);
+
+        // Initial number generation
+        generateRandomNumber();
+    </script>
+</body>
+</html>
